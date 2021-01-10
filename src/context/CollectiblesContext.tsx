@@ -31,6 +31,10 @@ function collectiblesReducer(state:any, action:any) {
       newState[action.collection] = selectedCollection
       localStorage.setItem('collectibles', JSON.stringify(newState))
       return newState
+    case 'import': 
+      console.log(action.collectibles)
+      localStorage.setItem('collectibles', JSON.stringify(action.collectibles))
+      return { ...action.collectibles }
     default: 
       return state
   }
