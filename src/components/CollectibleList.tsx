@@ -35,7 +35,7 @@ const CollectibleList = ({name, collectibleList, id}: CollectibleListParams) => 
             collection={id}
             name={collectible.name}
             count={collectible.count}
-            onUpArrowClick={() => {console.log("here"); collectiblesDispatcher({ type: 'updateCollectible', collection: id, name: collectible.name, count: collectible.count + 1})}}
+            onUpArrowClick={() => collectiblesDispatcher({ type: 'updateCollectible', collection: id, name: collectible.name, count: collectible.count + 1})}
             onDownArrowClick={() => collectiblesDispatcher({ type: 'updateCollectible', collection: id, name: collectible.name, count: collectible.count - 1})}/>)
       }
     </List>

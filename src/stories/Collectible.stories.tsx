@@ -16,5 +16,7 @@ export const Primary = Template.bind({});
 Primary.args = {
     name: "Collectible 1",
     count: 10,
-    collection: "collection 1"
+    collection: "collection 1",
+    onUpArrowClick: () => { console.log('button up pressed')},
+    onDownArrowClick: () => { console.log('button down pressed')}
 };
