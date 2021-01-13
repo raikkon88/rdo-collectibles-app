@@ -2,6 +2,30 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+**This project has been created to test storybook library and to test bit.dev tool as well.**
+
+The purpose of this project is to check the best way to reuse components between different teams.
+
+You can see the use of react context and react reducer.
+
+# Definition
+
+For rdo players which have the Collectionist role, here is a tool to track all it's collectibles. All the collections and collectibles are in spanish.
+
+# Initialization
+
+Clone the project, then run :
+
+```
+npm install
+```
+
+## Dependencies
+
+- Material design react
+- Storybook
+- bit dependencies
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -38,6 +62,88 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+### `npm run storybook`
+
+Starts the storybook project on localhost:6006. Maybe you can figure some default test components added from storybook, are used as examples as well.
+
+# Bit
+
+## Installation
+
+Follow the steps described in [documentation](https://docs.bit.dev/docs/installation).
+
+A Bit project has been initializad using the command `bit init` inside the root project folder.
+
+## Configuration
+
+First of all you have to create and configure a bit account. Use this documentation to generate this configuration. You can create an account from the page [Login page](https://bit.dev/login?redirectUri=%2F).
+
+Then configure your bit client. Be sure bit is installed globally using `bit -v` and checking it's version.
+
+### 1. Create a ssh key
+
+You must create an ssh key or get an authentication token from the platform. To create an ssh key  use the next sequence :
+
+```
+cd ~/.ssh
+ssh-keygen -t rsa -b 4096
+```
+
+Once key is created you can login the platform and set up the public key in [Settings -> Authentication](https://bit.dev/settings/authentication).
+
+### 2. Configure your bit client
+
+Configure your bit client as is described in the [configuration page](https://docs.bit.dev/docs/conf-config).
+
+Configure the private ssh key.
+
+```
+bit config set ssh_key_file "absolute path to private key"
+```
+
+Configure the email used to create the bit account.
+
+```
+bit config set user.email "eugenio@eldelos.chistes"
+```
+
+Configure a full name.
+
+```
+bit config set user.name "Eugenio el de los chistes"
+```
+
+### 3. Test configuration
+
+Login from the bit client using the command `bit login`. If above configurations has been properly done the client
+
+## Track components
+
+Bit creates a dependency map for all components tracked. To add a component to be tracked only add all it's files under an id.
+
+```
+bit add src/components/Collectible/*
+```
+
+You can check status of all tracked components with `bit status`.
+
+## Configure build step
+
+Configure build step for React-TypeScript. This will install some dependencies from bit.dev.
+
+```
+bit import bit.envs/compilers/react-typescript --compiler
+```
+
+## Tag and export
+
+Set a version to all tracked components, and export to this collection.
+
+```
+bit tag --all 1.0.0
+bit export raikkon88.rdo-components
+```
 
 ## Learn More
 
