@@ -3,25 +3,23 @@ import { ListItemSecondaryAction, ListItem, ListItemText, IconButton } from '@ma
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-import {CollectiblesDispatcher} from '../../context/CollectiblesContext'
-
 export interface CollectibleParams {
   name:string
   count:number
   collection:string
+  onUpArrowClick: () => any
+  onDownArrowClick: () => any
 }
 
-const Collectible = ({name, count, collection}: CollectibleParams) => {
-
-  const {collectiblesDispatcher} = React.useContext(CollectiblesDispatcher)
+const Collectible = ({name, count, onUpArrowClick, onDownArrowClick}: CollectibleParams) => {
 
   return <ListItem>
     <ListItemText primary={`${count} -- ${name}`}/>
     <ListItemSecondaryAction>
-      <IconButton onClick={() => collectiblesDispatcher({ type: 'updateCollectible', collection: collection, name: name, count: count + 1})}>
+      <IconButton onClick={onUpArrowClick}>
         <ArrowDropUpIcon />
       </IconButton>
-      <IconButton onClick={() => collectiblesDispatcher({ type: 'updateCollectible', collection: collection, name: name, count: count - 1})}>
+      <IconButton onClick={onDownArrowClick}>
         <ArrowDropDownIcon />
       </IconButton>
     </ListItemSecondaryAction>
