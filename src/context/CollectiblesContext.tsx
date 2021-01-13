@@ -15,7 +15,6 @@ export const CollectiblesDispatcher = React.createContext<any>({})
 
 function collectiblesReducer(state:any, action:any) {
   let newState = { ...state }
-  console.log(state)
   switch(action.type){
     case 'updateCollectible':
       if(action.count < 0) {
@@ -33,7 +32,6 @@ function collectiblesReducer(state:any, action:any) {
       localStorage.setItem('collectibles', JSON.stringify(newState))
       return newState
     case 'import':
-      console.log(action.collectibles)
       localStorage.setItem('collectibles', JSON.stringify(action.collectibles))
       return { ...action.collectibles }
     default:
