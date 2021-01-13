@@ -10,13 +10,11 @@ export default {
 } as Meta;
 
 const Template: Story<CollectibleParams> = (args) => <Collectible
-    {...args}
-    name="Collectible 1"
-    count={12}
-    collection="collection1" />;
+    {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    primary: true,
-    label: 'Collectible'
+    name: "Collectible 1",
+    count: 10,
+    collection: "collection 1"
 };
