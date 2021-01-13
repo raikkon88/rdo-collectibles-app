@@ -3,7 +3,7 @@ import { ListItemSecondaryAction, ListItem, ListItemText, IconButton } from '@ma
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-import {CollectiblesDispatcher} from '../context/CollectiblesContext'
+import {CollectiblesDispatcher} from '../../context/CollectiblesContext'
 
 export interface CollectibleParams {
   name:string
@@ -14,7 +14,7 @@ export interface CollectibleParams {
 const Collectible = ({name, count, collection}: CollectibleParams) => {
 
   const {collectiblesDispatcher} = React.useContext(CollectiblesDispatcher)
-  
+
   return <ListItem>
     <ListItemText primary={`${count} -- ${name}`}/>
     <ListItemSecondaryAction>
