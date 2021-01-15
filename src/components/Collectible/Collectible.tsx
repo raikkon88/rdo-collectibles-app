@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListItemSecondaryAction, ListItem, ListItemText, IconButton } from '@material-ui/core'
+import { Paper, ListItemSecondaryAction, ListItem, ListItemText, IconButton, makeStyles } from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
@@ -11,10 +11,18 @@ export interface CollectibleParams {
   onDownArrowClick: () => any
 }
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: 5
+  }
+}))
+
 const Collectible = ({name, count, onUpArrowClick, onDownArrowClick}: CollectibleParams) => {
 
-  return <ListItem>
-    <ListItemText primary={`${count} -- ${name}`}/>
+  const classes = useStyles()
+
+  return <ListItem component={Paper} className={classes.root}>
+    <ListItemText primary={`${name}`} secondary={`${count}`}/>
     <ListItemSecondaryAction>
       <IconButton onClick={onUpArrowClick}>
         <ArrowDropUpIcon />

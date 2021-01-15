@@ -69,6 +69,8 @@ Starts the storybook project on localhost:6006. Maybe you can figure some defaul
 
 # Bit
 
+**[A good tutorial to follow](https://docs.bit.dev/docs/tutorials/bit-react-tutorial#prior-knowledge)**
+
 ## Installation
 
 Follow the steps described in [documentation](https://docs.bit.dev/docs/installation).
@@ -144,6 +146,55 @@ Set a version to all tracked components, and export to this collection.
 bit tag --all 1.0.0
 bit export raikkon88.rdo-components
 ```
+
+# Consume bit components
+
+Bit dev generates a package located under de @bit scope. To use the component only needs to install the dependency from bit.
+
+```
+npm i @bit/raikkon88.rdo-components.rdo-collectibles.collectible
+```
+
+Below is an example about how to use the previowsly installed component.
+
+```
+import React from 'react';
+import './App.css';
+
+import Collectible from '@bit/raikkon88.rdo-components.rdo-collectibles.collectible'
+
+function App() {
+  return (
+    <Collectible
+      name="collectible 1"
+      count={12}
+      collection="collection 1"
+      onDownArrowClick={() => console.log("click on arrow down")}
+      onUpArrowClick={() => console.log("click on arrow up")}/>
+  );
+}
+export default App;
+```
+
+# Importing
+
+Importing a component must not be confused with the installation of a component throwgth npm. When install a component with npm it will be available to be used on the code. When importing a component with bit this component will be added to the bit workspace.
+
+## Define a workspace folder
+
+All configurations can be done in a file bit.json in the project's root folder. Must look like the following :
+
+```
+{
+    "componentsDefaultDirectory": "components/bit"
+}
+```
+
+If a workspace folder is not defined the path can be overritten with the option `bit import --path`
+
+
+
+
 
 ## Learn More
 
