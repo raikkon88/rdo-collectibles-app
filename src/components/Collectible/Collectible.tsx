@@ -13,7 +13,7 @@ export interface CollectibleParams {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: 5
+    margin: 10
   }
 }))
 
