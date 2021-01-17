@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
-import {Container, Grid, Typography, Button } from '@material-ui/core';
+import {Container, Grid } from '@material-ui/core';
 
+import Header from './components/header'
 import CollectibleList from './components/CollectibleList'
 import {CollectiblesContext, CollectiblesDispatcher} from './context/CollectiblesContext'
+import CollectionMenu from './components/collectionMenu';
+import {CollectionMenuItemParams} from './components/collectionMenu/item'
 
 function App() {
   
@@ -45,22 +48,19 @@ function App() {
   return (
       <Container maxWidth='xl'>
         <Grid>
-          <Grid container alignItems="center" justify="space-between">
-            <Typography variant={'h2'}>
-              Collectibles
-            </Typography>
-            <Grid>
-              <Button variant='outlined' onClick={exportCollectibles}>
-                Export
-              </Button>
-              <Button variant='outlined' onClick={importCollectibles}>
-                Import
-              </Button>
-            </Grid>
-          </Grid>
+          <Header 
+            onImport={importCollectibles}
+            onExport={exportCollectibles}/>
           <Grid container direction="row">
             {
-              collectibles && Object.keys(collectibles).map((key:string) => <Button variant='contained' color="primary" key={`button-${collectibles[key].name}`} onClick={() => setSelectedCollectible(key)}>{collectibles[key].name}</Button>)
+              collectibles && <CollectionMenu
+                items={Object.keys(collectibles).map((key:string) => { 
+                  return ({
+                    name: collectibles[key].name,
+                    onClick: () => setSelectedCollectible(key),
+                    fullWidth: true
+                } as CollectionMenuItemParams)})}
+                />
             }
           </Grid>
           { selectedCollectible &&
