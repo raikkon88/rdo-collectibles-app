@@ -138,6 +138,8 @@ Configure build step for React-TypeScript. This will install some dependencies f
 bit import bit.envs/compilers/react-typescript --compiler
 ```
 
+Choose the react compiler that satisfies your needs (the guide suggests to install react compiler and not react-typescript compiler).
+
 ## Tag and export
 
 Set a version to all tracked components, and export to this collection.
@@ -145,6 +147,14 @@ Set a version to all tracked components, and export to this collection.
 ```
 bit tag --all 1.0.0
 bit export raikkon88.rdo-components
+```
+
+Change the version number as you want, you can use bit to tell how does bit increase the version number for you using :
+
+```
+-p, --patch                           increment the patch version number
+--minor                               increment the minor version number
+--major                               increment the major version number
 ```
 
 # Consume bit components
@@ -182,18 +192,27 @@ Importing a component must not be confused with the installation of a component 
 
 ## Define a workspace folder
 
-All configurations can be done in a file bit.json in the project's root folder. Must look like the following :
+All configurations can be done in a file bit.json in the project's root folder or inside bit section on package.json. It's important to note that React and React-dom must be used as peerDependencies when a component is shared with other projects. Component assumes that React and React-dom are installed on the other projects where can be used. Inside package.json in the bit section add this peer dependencies. Relax the versions in peerdependencies as possible.
 
-```
+``` package.json
 {
-    "componentsDefaultDirectory": "components/bit"
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react-typescript@3.1.64"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm",
+    "src/components/*": {
+      "peerDependencies": {
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
+      }
+    }
+  }
 }
 ```
 
 If a workspace folder is not defined the path can be overritten with the option `bit import --path`
-
-
-
 
 
 ## Learn More
