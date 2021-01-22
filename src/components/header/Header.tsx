@@ -22,10 +22,10 @@ const Header = ({onExport, onImport} : HeaderParams) => {
       Collectibles
     </Typography>
     <Grid>
-      <Button variant='outlined' onClick={() => {}} className={classes.button}>
+      <Button variant='outlined' onClick={() => window.open("https://jeanropke.github.io/RDOMap/", "_blank")} className={classes.button}>
         General Map
       </Button>
-      <Button variant='outlined' onClick={() => {}} className={classes.button}>
+      <Button variant='outlined' onClick={() => window.open("https://jeanropke.github.io/RDR2CollectorsMap/", "_blank")} className={classes.button}>
         Collectibles Map
       </Button>
       <Button variant='outlined' onClick={onExport} className={classes.button}>
