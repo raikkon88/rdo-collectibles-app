@@ -138,6 +138,26 @@ Configure build step for React-TypeScript. This will install some dependencies f
 bit import bit.envs/compilers/react-typescript --compiler
 ```
 
+Choose the react compiler that satisfies your needs (the guide suggests to install react compiler and not react-typescript compiler).
+
+All configurations can be done in a file bit.json in the project's root folder or inside bit section on package.json. It's important to note that React and React-dom must be used as peerDependencies when a component is shared with other projects. Component assumes that React and React-dom are installed on the other projects where can be used. Inside package.json in the bit section add this peer dependencies. Relax the versions in peerdependencies as possible.
+
+{
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react-typescript@3.1.64"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm",
+    "src/components/*": {
+      "peerDependencies": {
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
+      }
+    }
+  }
+}
+
 ## Tag and export
 
 Set a version to all tracked components, and export to this collection.
@@ -145,6 +165,14 @@ Set a version to all tracked components, and export to this collection.
 ```
 bit tag --all 1.0.0
 bit export raikkon88.rdo-components
+```
+
+Change the version number as you want, you can use bit to tell how does bit increase the version number for you using :
+
+```
+-p, --patch                           increment the patch version number
+--minor                               increment the minor version number
+--major                               increment the major version number
 ```
 
 # Consume bit components
@@ -180,20 +208,64 @@ export default App;
 
 Importing a component must not be confused with the installation of a component throwgth npm. When install a component with npm it will be available to be used on the code. When importing a component with bit this component will be added to the bit workspace.
 
-## Define a workspace folder
+## Configure and Define a workspace folder
 
-All configurations can be done in a file bit.json in the project's root folder. Must look like the following :
+First create the bit repo inside the consumer project.
 
 ```
+bit init
+```
+
+Define how the workspace for the consumer application must be, even you must install the compiler if you want to build the components.
+
+```
+bit import bit.envs/compilers/react-typescript --compiler
+```
+
+How does your package.json should be:
+
+``` package.json
 {
-    "componentsDefaultDirectory": "components/bit"
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react-typescript@3.1.64"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+  }
 }
 ```
 
 If a workspace folder is not defined the path can be overritten with the option `bit import --path`
 
+## Import the component.
 
+You can find the url to import the component inside the bit component web page. In this case I used [This one](https://bit.dev/raikkon88/rdo-components/rdo-collectibles/collectible).
 
+```
+bit import raikkon88.rdo-components/rdo-collectibles/collectible
+```
+
+The component name is composed by `<username>.<path>/<to>/<component>`
+
+**Important!**: Notifications on missing core dependencies are ok. You should already have those packages in your project. Extracted from [here](https://docs.bit.dev/docs/tutorials/bit-react-tutorial#prior-knowledge)
+
+## Make needed changes.
+
+At this point you can do all changes that you need over your new component. Bit is not a VCS and the code for the components must be stored inside your prefered VCS such as git. **Important!**: In a real project, it is recommended to commit those changes to your GitHub repository. Extracted from [here](https://docs.bit.dev/docs/tutorials/bit-react-tutorial#prior-knowledge).
+
+## Tag and export
+
+You can tag and export your component as it was made by the owner.
+
+## Import updates for a component
+
+Running bit import will notice you if there are changes on the components tracked. To join an exact version for the component or just to download the new ones run the checkout command.
+
+```
+bit checkout X.X.X <componentId>
+```
+
+This will merge the old component for the new one, at the same point you can downgrade a component using the same behavior.
 
 
 ## Learn More
@@ -201,3 +273,5 @@ If a workspace folder is not defined the path can be overritten with the option 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+To learn bit, check out the [Bit documentation](https://docs.bit.dev/docs/quick-start)
