@@ -46,6 +46,24 @@ function App() {
     input.click()
   }
 
+  const getMenuItems = React.useMemo<CollectionMenuItemParams[]>(() => {
+
+    const sortFunc = (a:string, b:string) => {
+      let aName = collectibles[a].name;
+      let bName = collectibles[b].name;
+      return aName < bName ? -1 : aName > bName ? 1 : 0
+    }
+
+    return Object.keys(collectibles).sort(sortFunc).map((key:string) => { 
+      return ({
+        name: collectibles[key].name,
+        length: collectibles[key].collectibleList.length,
+        count: collectibles[key].collectibleList.filter((collectible: CollectibleParams) => collectible.count > 0).length,
+        onClick: () => setSelectedCollectible(key),
+        fullWidth: true
+    } as CollectionMenuItemParams)})
+  }, [collectibles])
+
   return (
       <Container maxWidth='xl'>
         <Grid>
@@ -55,14 +73,7 @@ function App() {
           <Grid container direction="row">
             {
               collectibles && <CollectionMenu
-                items={Object.keys(collectibles).map((key:string) => { 
-                  return ({
-                    name: collectibles[key].name,
-                    length: collectibles[key].collectibleList.length,
-                    count: collectibles[key].collectibleList.filter((collectible: CollectibleParams) => collectible.count > 0).length,
-                    onClick: () => setSelectedCollectible(key),
-                    fullWidth: true
-                } as CollectionMenuItemParams)})}
+                items={getMenuItems}
                 />
             }
           </Grid>

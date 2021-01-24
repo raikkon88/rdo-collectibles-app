@@ -37,7 +37,6 @@ export interface CollectionMenuItemParams {
   fullWidth: boolean
 }
 
-
 const CollectionMenuItem = ({name, onClick, count, length, fullWidth} : CollectionMenuItemParams) => {
 
   const classes = useStyles()
