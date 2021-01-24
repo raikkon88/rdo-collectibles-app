@@ -7,6 +7,7 @@ import CollectibleList from './components/CollectibleList'
 import {CollectiblesContext, CollectiblesDispatcher} from './context/CollectiblesContext'
 import CollectionMenu from './components/collectionMenu';
 import {CollectionMenuItemParams} from './components/collectionMenu/item'
+import { CollectibleParams } from './components/Collectible';
 
 function App() {
   
@@ -31,7 +32,7 @@ function App() {
         const reader = new FileReader()
         reader.onload = () => {
           if(reader.result){
-            console.log('loaded', reader.result)
+            // console.log('loaded', reader.result)
             collectiblesDispatcher({type: 'import', collectibles: JSON.parse(reader.result as string)})
           }
         }
@@ -57,6 +58,8 @@ function App() {
                 items={Object.keys(collectibles).map((key:string) => { 
                   return ({
                     name: collectibles[key].name,
+                    length: collectibles[key].collectibleList.length,
+                    count: collectibles[key].collectibleList.filter((collectible: CollectibleParams) => collectible.count > 0).length,
                     onClick: () => setSelectedCollectible(key),
                     fullWidth: true
                 } as CollectionMenuItemParams)})}
